@@ -132,16 +132,18 @@
     /* Paper plane on successful signup */
     form { transition: opacity 0.35s ease, transform 0.35s ease; }
     form.sent { opacity: 0; transform: translateY(6px); }
+    button { position: relative; overflow: hidden; }
     .plane {
-      position: fixed; z-index: 20; width: 30px; height: 30px;
-      color: var(--ink); pointer-events: none;
-      animation: fly 1.2s cubic-bezier(.55,0,.8,.2) forwards;
+      position: absolute; left: 50%; top: 50%;
+      width: 20px; height: 20px; margin: -10px 0 0 -10px;
+      color: var(--btn-ink); pointer-events: none;
+      animation: fly 0.9s cubic-bezier(.45,0,.55,1) forwards;
     }
     @keyframes fly {
-      0%   { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 0; }
-      12%  { transform: translate(-10px, 8px) rotate(-6deg) scale(1); opacity: 1; }
-      30%  { transform: translate(-18px, 14px) rotate(-10deg) scale(1); opacity: 1; }
-      100% { transform: translate(70vw, -85vh) rotate(8deg) scale(0.35); opacity: 0; }
+      0%   { transform: translate(-48px, 8px) rotate(6deg) scale(0.8); opacity: 0; }
+      20%  { transform: translate(-30px, 4px) rotate(2deg) scale(1); opacity: 1; }
+      55%  { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translate(70px, -22px) rotate(-10deg) scale(0.8); opacity: 0; }
     }
     .status.show { animation: settle 0.5s ease both; }
     @keyframes settle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -210,17 +212,19 @@
       a.addEventListener('click', function (e) { e.preventDefault(); });
     });
 
-    // Paper plane that launches from the button, then calls `next`.
-    function flyAway(fromEl, next) {
+    // Paper plane that flies across the button, then calls `next`.
+    function flyAway(btn, next) {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { next(); return; }
-      var r = fromEl.getBoundingClientRect();
+      btn.style.width = btn.getBoundingClientRect().width + 'px';
+      btn.textContent = '';
+      btn.setAttribute('aria-label', 'Sent');
       var ns = 'http://www.w3.org/2000/svg';
       var svg = document.createElementNS(ns, 'svg');
       svg.setAttribute('class', 'plane');
       svg.setAttribute('viewBox', '0 0 24 24');
       svg.setAttribute('fill', 'none');
       svg.setAttribute('stroke', 'currentColor');
-      svg.setAttribute('stroke-width', '1.6');
+      svg.setAttribute('stroke-width', '1.8');
       svg.setAttribute('stroke-linecap', 'round');
       svg.setAttribute('stroke-linejoin', 'round');
       svg.setAttribute('aria-hidden', 'true');
@@ -229,12 +233,11 @@
         path.setAttribute('d', d);
         svg.appendChild(path);
       });
-      svg.style.left = (r.left + r.width / 2 - 15) + 'px';
-      svg.style.top = (r.top + r.height / 2 - 15) + 'px';
-      document.body.appendChild(svg);
-      form.classList.add('sent');
-      setTimeout(next, 650);
-      svg.addEventListener('animationend', function () { svg.remove(); });
+      btn.appendChild(svg);
+      svg.addEventListener('animationend', function () {
+        form.classList.add('sent');
+        setTimeout(next, 350);
+      });
     }
 
     var form = document.getElementById('notify');
