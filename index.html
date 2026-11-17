@@ -89,8 +89,8 @@
     h2 span { color: var(--muted); }
     .signup p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--soft); }
 
-    .pillars { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
-    .pillars li { padding: 7px 12px; border: 1px solid var(--field-border); border-radius: 999px; color: var(--soft); font-size: 11px; }
+    .signup .pillars { font-size: 11px; line-height: 2; color: var(--soft); }
+    .pillars span { color: var(--accent-word); }
     form { display: flex; flex-direction: column; gap: 10px; }
     label { color: var(--muted); font-size: 11px; }
     .field {
@@ -178,9 +178,7 @@
     <section class="signup rise d2" aria-label="Get notified">
       <h2>Where builders<br><span>lift the next generation.</span></h2>
       <p>A community for entrepreneurs, mentors, investors and anyone with an idea worth backing. Find mentorship and support, share your ideas, and connect with people of integrity in every field, online and at events in person.</p>
-      <ul class="pillars mono" aria-label="What's coming">
-        <li>Mentorship</li><li>Funding</li><li>Ideas</li><li>Articles</li><li>Events</li>
-      </ul>
+      <p class="pillars mono" aria-label="What's coming">Mentorship <span aria-hidden="true">/</span> Funding <span aria-hidden="true">/</span> Ideas <span aria-hidden="true">/</span> Articles <span aria-hidden="true">/</span> Events</p>
 
       <form id="notify" name="notify" method="POST" data-netlify="true" netlify-honeypot="company" novalidate>
         <input type="hidden" name="form-name" value="notify">
