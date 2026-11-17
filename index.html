@@ -1,0 +1,216 @@
+<!doctype html>
+<!--
+  Active Billion Year — coming-soon page
+  Site by Dee-Why (taiwoadedayo.net)
+
+  THEME: data-theme="dark" (charcoal) or data-theme="light" (paper) on the <html> tag below.
+  FORM:  emails are NOT sent or stored yet. Hook up a service in the submit handler at the bottom
+         (look for "TODO: connect form").
+  LINKS: Instagram and Contact point to "#" until the client's details are known.
+-->
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Active Billion Year — Coming soon</title>
+  <meta name="description" content="Active Billion Year is coming soon. Leave your email to be the first to know when it launches.">
+  <meta property="og:title" content="Active Billion Year — Coming soon">
+  <meta property="og:description" content="Something new is on the way. Be the first to know when it launches.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://activebillionyear.com">
+  <meta name="theme-color" content="#171717">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23171717'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='28' letter-spacing='-2' fill='%23F5F5F5'%3EAB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #171717; --ink: #F5F5F5; --muted: #A3A3A3; --soft: #D4D4D4;
+      --accent-word: #737373; --line: #2E2E2E;
+      --field: #262626; --field-border: #404040;
+      --btn-bg: #F5F5F5; --btn-ink: #171717; --placeholder: #737373;
+    }
+    [data-theme="light"] {
+      --bg: #F5F5F4; --ink: #0A0A0A; --muted: #57534E; --soft: #44403C;
+      --accent-word: #A8A29E; --line: #0A0A0A;
+      --field: #FFFFFF; --field-border: #D6D3D1;
+      --btn-bg: #0A0A0A; --btn-ink: #FAFAFA; --placeholder: #78716C;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      background: var(--bg); color: var(--ink);
+      font-family: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    a:hover { color: var(--muted); }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+    .mono {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+
+    header {
+      padding: 28px clamp(20px, 4vw, 48px);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+      color: var(--muted);
+    }
+    [data-theme="light"] header {
+      margin: 0 clamp(20px, 4vw, 48px); padding: 28px 0 20px;
+      border-bottom: 1px solid var(--line); color: var(--ink);
+    }
+
+    main {
+      flex: 1 1 auto;
+      padding: 32px clamp(20px, 4vw, 48px) 0;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 48px 80px;
+    }
+
+    h1 {
+      flex: 999 1 560px; min-width: 0; margin: 0;
+      font-weight: 600; font-size: clamp(56px, 8.6vw, 136px);
+      line-height: 0.84; letter-spacing: -0.06em;
+    }
+    h1 .light { font-weight: 300; color: var(--accent-word); }
+
+    .signup {
+      flex: 1 1 360px; max-width: 440px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    h2 {
+      margin: 0; font-weight: 500; font-size: clamp(30px, 3vw, 40px);
+      line-height: 1.05; letter-spacing: -0.03em;
+    }
+    h2 span { color: var(--muted); }
+    .signup p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--soft); }
+
+    form { display: flex; flex-direction: column; gap: 10px; }
+    label { color: var(--muted); font-size: 11px; }
+    .field {
+      display: flex; gap: 6px; padding: 5px;
+      background: var(--field); border: 1px solid var(--field-border); border-radius: 12px;
+    }
+    .field:focus-within { border-color: var(--ink); }
+    input {
+      flex: 1 1 auto; min-width: 0; height: 46px; padding: 0 12px;
+      background: transparent; border: 0; outline: none;
+      color: var(--ink); font: inherit; font-size: 16px;
+    }
+    input::placeholder { color: var(--placeholder); }
+    button {
+      height: 46px; padding: 0 20px; border: 0; border-radius: 8px;
+      background: var(--btn-bg); color: var(--btn-ink);
+      font: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.85; }
+    .error { min-height: 1.2em; margin: 0; font-size: 14px; color: var(--soft); }
+    .status {
+      margin: 0; padding: 16px 18px; border-radius: 12px;
+      background: var(--field); font-size: 16px;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding: 24px clamp(20px, 4vw, 48px);
+      border-top: 1px solid var(--line);
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+      font-size: 13px; color: var(--muted);
+    }
+    [data-theme="light"] footer { margin: 48px clamp(20px, 4vw, 48px) 0; padding: 24px 0; }
+    footer nav { display: flex; flex-wrap: wrap; gap: 24px; }
+    footer a { padding: 6px 0; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    [hidden] { display: none !important; }
+
+    /* Entrance */
+    .rise { opacity: 0; transform: translateY(18px); animation: rise 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
+    .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.2s; } .d3 { animation-delay: 0.35s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .rise { animation: none; opacity: 1; transform: none; } }
+
+    @media (max-width: 520px) {
+      .field { flex-direction: column; padding: 6px; }
+      input { height: 48px; }
+      button { height: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="mono">
+    <span>activebillionyear.com</span>
+    <span>Coming soon</span>
+  </header>
+
+  <main>
+    <h1 class="rise d1">Active<br><span class="light">Billion</span> Year</h1>
+
+    <section class="signup rise d2" aria-label="Get notified">
+      <h2>A billion reasons<br><span>to keep moving.</span></h2>
+      <p>Something new is on the way. Leave your email and you'll be the first to know when it launches.</p>
+
+      <form id="notify" novalidate>
+        <label for="email" class="mono">Email address</label>
+        <div class="field">
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="email-error">
+          <button type="submit">Notify me</button>
+        </div>
+        <p id="email-error" class="error" aria-live="polite"></p>
+      </form>
+      <p id="done" class="status" role="status" hidden>You're on the list. We'll email you at launch.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year">2026</span> Active Billion Year</span>
+    <nav aria-label="Links">
+      <a href="#">Instagram</a>
+      <a href="#">Contact</a>
+      <a href="https://taiwoadedayo.net" target="_blank" rel="noopener">Site by Dee-Why</a>
+    </nav>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Keep the browser UI colour in step with the theme.
+    var bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', bg);
+
+    // Placeholder links: don't jump to the top of the page.
+    document.querySelectorAll('a[href="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); });
+    });
+
+    var form = document.getElementById('notify');
+    var input = document.getElementById('email');
+    var error = document.getElementById('email-error');
+    var done = document.getElementById('done');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = input.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        error.textContent = 'Please enter a valid email address.';
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
+      }
+      error.textContent = '';
+      input.removeAttribute('aria-invalid');
+
+      // TODO: connect form. Send `email` to a service (e.g. Formspree, Resend, Mailchimp)
+      // here before showing the confirmation. Right now nothing is sent or saved.
+
+      form.hidden = true;
+      done.hidden = false;
+    });
+  </script>
+</body>
+</html>
