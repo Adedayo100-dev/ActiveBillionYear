@@ -4,8 +4,8 @@
   Site by Dee-Why (taiwoadedayo.net)
 
   THEME: data-theme="dark" (charcoal) or data-theme="light" (paper) on the <html> tag below.
-  FORM:  emails are NOT sent or stored yet. Hook up a service in the submit handler at the bottom
-         (look for "TODO: connect form").
+  FORM:  uses Netlify Forms. Signups appear in the Netlify dashboard under Forms > "notify".
+         Turn on email notifications there (Forms > Form notifications) to get each signup by email.
   LINKS: Instagram and Contact point to "#" until the client's details are known.
 -->
 <html lang="en" data-theme="dark">
@@ -155,7 +155,9 @@
       <h2>A billion reasons<br><span>to keep moving.</span></h2>
       <p>Something new is on the way. Leave your email and you'll be the first to know when it launches.</p>
 
-      <form id="notify" novalidate>
+      <form id="notify" name="notify" method="POST" data-netlify="true" netlify-honeypot="company" novalidate>
+        <input type="hidden" name="form-name" value="notify">
+        <p hidden><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
         <label for="email" class="mono">Email address</label>
         <div class="field">
           <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="email-error">
@@ -205,11 +207,23 @@
       error.textContent = '';
       input.removeAttribute('aria-invalid');
 
-      // TODO: connect form. Send `email` to a service (e.g. Formspree, Resend, Mailchimp)
-      // here before showing the confirmation. Right now nothing is sent or saved.
+      var button = form.querySelector('button');
+      button.disabled = true;
+      button.textContent = 'Sending…';
 
-      form.hidden = true;
-      done.hidden = false;
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      }).then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        form.hidden = true;
+        done.hidden = false;
+      }).catch(function () {
+        error.textContent = 'Something went wrong. Please try again in a moment.';
+        button.disabled = false;
+        button.textContent = 'Notify me';
+      });
     });
   </script>
 </body>
