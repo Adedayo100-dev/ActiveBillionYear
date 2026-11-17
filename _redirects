@@ -1,0 +1,5 @@
+# Send the second domain (and its www) to the main site
+https://activebillion.com/*      https://activebillionyear.com/:splat  301!
+http://activebillion.com/*       https://activebillionyear.com/:splat  301!
+https://www.activebillion.com/*  https://activebillionyear.com/:splat  301!
+http://www.activebillion.com/*   https://activebillionyear.com/:splat  301!
